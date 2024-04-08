@@ -1,0 +1,1086 @@
+//author:boril
+//选择数据项目(哈尔滨项目)
+//pid:顶级节点id.默认为所有
+//returnType:选择类型多选(0)单选(1)默认多选
+//idss已经选中的id
+//names已经选中的名称
+function selectData(pid,returnType,idss,names){
+	var link="/jsp/forest/all_select_data_manage/main_frame.jsp?pid="+pid+"&returnType="+returnType+"&ID="+idss+"&Name="+names;
+	var stat="dialogWidth:600px;dialogHeight:400px;status:0;help:0;scroll:0";
+ 	str=window.showModalDialog(link,"MyDialog",stat);
+	return str;
+}
+//author:boril
+//选择数据项目,带输出值(哈尔滨项目)
+//pid:顶级节点id.默认为所有
+//returnType:选择类型多选(0)单选(1)默认多选
+//idin已经选中的id
+//nameIn已经选中的名称
+//idOut需要赋值的id
+//nameOut需要赋值的name
+function selectDataAll(pid,returnType,idin,namein,idOut,nameOut){
+	//alert("idOut="+idOut);
+	//alert("nameOut="+nameOut);
+	var objId=document.all(idOut);
+	var objName=document.all(nameOut);
+	var retStr=selectData(pid,returnType,idin,namein);
+	var i;
+	var dataName;
+	var dataId;
+	if(retStr!=null){
+	  i=str.indexOf("|");
+	  dataName=str.substring(0,i);
+	  dataId=str.substring(i+1);
+	}else{
+		return;
+	}
+	objId.value=dataId;
+	objName.value=dataName;
+}
+//author:boril
+//选择数据项目,不带输入值
+//pid:顶级节点id.默认为所有
+//returnType:选择类型多选(0)单选(1)默认多选
+//idOut需要赋值的id
+//nameOut需要赋值的name
+function selectDataOnlyOut(pid,returnType,idOut,nameOut){
+	selectDataAll(pid,returnType,"","",idOut,nameOut);
+}
+//author:boril
+//选择数据项目.
+//pid:顶级节点id.默认为所有
+//returnType:选择类型多选(0)单选(1)默认多选
+//idOut需要赋值的id
+function selectDataInOut(pid,returnType,idOut,nameOut){
+	var inId=document.all(idOut).value;
+	var inName=document.all(nameOut).value;
+	selectDataAll(pid,returnType,inId,inName,idOut,nameOut);
+}
+
+//========================================按单位类型显示单位列表==========================================
+
+//autoro:刘宇
+//查询企业信息
+//name:文本域对象
+//code:隐藏域对象
+//flag:选择类型多选(0)单选(1)
+function compFindByCompType(code,name,flag,compType){
+	//alert(compType);
+	var stat="status=no,maximize=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,top=240,left=580,resizable=no,height=400,width=315";
+	var windowObject = window.open(
+		('/jsp/module/system/util/compFind.jsp?flag='+flag+'&code='+code.name+'&name='+name.name+'&compType='+compType)
+		,'',stat);
+}
+
+//=========================================================================================================
+
+
+//autoro:刘宇
+//查询企业信息
+//name:文本域对象
+//code:隐藏域对象
+//flag:选择类型多选(0)单选(1)
+function compFind(code,name,flag){
+	//alert(code.name);
+	//alert(name.name);
+	var stat="status=no,maximize=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,top=240,left=580,resizable=no,height=400,width=315";
+	var windowObject = window.open(
+		('/jsp/module/system/util/compFind.jsp?flag='+flag+'&code='+code.name+'&name='+name.name)
+		,'',stat);
+}
+
+//autoro:刘宇
+//查询人员信息
+//name:文本域对象
+//code:隐藏域对象
+//flag:选择类型多选(0)单选(1)
+function personFind(code,name,flag){
+	var stat="status=no,maximize=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,top=130,left=650,resizable=no,height=400,width=313";
+	var str = window.open(
+		('/jsp/module/system/util/personFind.jsp?flag='+flag+'&code='+code.name+'&name='+name.name)
+		,'',stat);
+}
+
+//===================================================================================================
+
+//autoro:刘宇
+//查询人员信息
+//name:文本域对象
+//code:隐藏域对象
+//flag:选择类型多选(0)单选(1)
+function personFindByDeptId(code,name,flag,deptId,loss){
+	//alert(deptId);
+	//alert('/jsp/module/system/util/personFind.jsp?flag='+flag+'&code='+code.name+'&name='+name.name+'&dpetId='+deptId);
+	var stat="status=no,maximize=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,top=130,left=650,resizable=no,height=400,width=313";
+	var str = window.open(
+		('/jsp/module/system/util/personFind.jsp?flag='+flag+'&code='+code.name+'&name='+name.name+'&deptId='+deptId+'&loss='+loss)
+		,'',stat);
+}
+
+//===============================================按单位类型显示人员列表=====================================
+
+//autoro:刘宇
+//查询人员信息
+//name:文本域对象
+//code:隐藏域对象
+//flag:选择类型多选(0)单选(1)
+function personFindByCompType(code,name,flag,compType){
+	//alert(compType);
+	//alert('/jsp/module/system/util/personFind.jsp?flag='+flag+'&code='+code.name+'&name='+name.name+'&dpetId='+deptId);
+	var stat="status=no,maximize=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,top=130,left=650,resizable=no,height=400,width=313";
+	var str = window.open(
+		('/jsp/module/system/util/personFind_unit_type.jsp?flag='+flag+'&code='+code.name+'&name='+name.name+'&compType='+compType)
+		,'',stat);
+}
+
+//====================================================================================================
+
+//autoro:刘宇
+//查询企业信息
+//name:文本域对象
+//code:隐藏域对象
+//flag:选择类型多选(0)单选(1)
+function compFind_sd(code,name,flag){
+	//alert(code.name);
+	//alert(name.name);
+	//var stat="status=no,maximize=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,top=240,left=580,resizable=no,height=400,width=315";
+	var link = '/jsp/module/system/util/comp_main_frame.jsp?flag='+flag+'&code='+code.name+'&name='+name.name;
+	var stat="dialogWidth:400px;dialogHeight:350px;status:0;help:0;scroll:yes";
+	var str = window.showModalDialog(link,'MyDialog',stat);
+	//alert(str);
+	return str;
+}
+
+//autoro:刘宇
+//查询人员信息
+//name:文本域对象
+//code:隐藏域对象
+//flag:选择类型多选(0)单选(1)
+function personFind_sd(code,name,flag){
+	//var stat="status=no,maximize=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,top=130,left=650,resizable=no,height=400,width=313";
+	var link = '/jsp/module/system/util/person_main_frame.jsp?flag='+flag+'&code='+code.name+'&name='+name.name;
+	//alert(link);
+	var stat="dialogWidth:400px;dialogHeight:350px;status:0;help:0;scroll:yes";
+	//alert(stat);
+	var str = window.showModalDialog(link,'MyDialog',stat);
+	//alert(str);
+	return str;
+}
+
+
+
+
+
+
+//===========================================select_data_manage按申领专用物品类别显示树结构==============================================================
+
+//autoro:刘宇
+//选择数据项目(消防产品项目)
+//pid:顶级节点id.默认为所有
+//returnType:选择类型多选(0)单选(1)默认多选
+//idss已经选中的id
+//names已经选中的名称
+//指定specId参数构造树
+function selectDataByDataId(pid,returnType,idss,names,dataIds){
+	//alert("===dataIds.length==="+dataIds.length);
+	var link="/jsp/forest/select_data_manage/main_frame.jsp?pid="+pid+"&returnType="+returnType+"&ID="+idss+"&Name="+names;
+	for(var i = 0; i < dataIds.length; i++){
+		//alert("dataIds["+i+"]="+dataIds[i]);
+		link = link + "&dataId=" + dataIds[i];
+	}
+	//alert(link);
+	var stat="dialogWidth:600px;dialogHeight:400px;status:0;help:0;scroll:0";
+ 	str=window.showModalDialog(link,"MyDialog",stat);
+	return str;
+}
+
+//author:boril
+//选择数据项目,带输出值(消防产品项目)
+//pid:顶级节点id.默认为所有
+//returnType:选择类型多选(0)单选(1)默认多选
+//idin已经选中的id
+//nameIn已经选中的名称
+//idOut需要赋值的id
+//nameOut需要赋值的name
+//指定specId参数构造树
+function selectDataAllByDataId(pid,returnType,idin,namein,idOut,nameOut,dataIds){
+	//alert("===dataIds.length==="+dataIds.length);
+	var objId=document.all(idOut);
+	var objName=document.all(nameOut);
+	var retStr=selectDataByDataId(pid,returnType,idin,namein,dataIds);
+	var i;
+	var dataName;
+	var dataId;
+	if(retStr!=null){
+	  i=str.indexOf("|");
+	  dataName=str.substring(0,i);
+	  dataId=str.substring(i+1);
+	}else{
+		return;
+	}
+	objId.value=dataId;
+	objName.value=dataName;
+}
+
+
+//====================构造产品类别树使得选择后可以显示父节点名字====================
+
+//autoro:刘宇
+//选择数据项目(消防产品项目)
+//pid:顶级节点id.默认为所有
+//returnType:选择类型多选(0)单选(1)默认多选
+//idss已经选中的id
+//names已经选中的名称
+//指定specId参数构造树
+function selectDataWithPartent(pid,returnType,ids,names){
+	var link="/jsp/forest/all_select_data_manage/main_frame.jsp?pid="+pid+"&returnType="+returnType+"&ID="+ids+"&Name="+names+"&withparent=true";
+	var stat="dialogWidth:600px;dialogHeight:400px;status:0;help:0;scroll:0";
+ 	str=window.showModalDialog(link,"MyDialog",stat);
+	return str;
+}
+
+//autoro:高彦夫
+//选择数据项目(消防产品项目)
+//pid:顶级节点id.默认为所有
+//returnType:选择类型多选(0)单选(1)默认多选
+//isQuery:查询为1，即只能选取最终子节点 ；新增保存，修改为0 ，即可选择非最终子节点；
+//idss已经选中的id
+//names已经选中的名称
+//指定specId参数构造树
+function openAreaTree(pid,returnType,isQuery,ids,names){
+	var link="/jsp/forest/area_config_tree/main_frame.jsp?pid="+pid+"&returnType="+returnType+"&isQuery="+isQuery+"&ID="+ids+"&Name="+names+"&withparent=true";
+	var stat="dialogWidth:600px;dialogHeight:400px;status:0;help:0;scroll:0";
+ 	str=window.showModalDialog(link,"MyDialog",stat);
+	return str;
+}
+//author:boril
+//选择数据项目,带输出值(消防产品项目)
+//pid:顶级节点id.默认为所有
+//returnType:选择类型多选(0)单选(1)默认多选
+//idin已经选中的id
+//nameIn已经选中的名称
+//idOut需要赋值的id
+//nameOut需要赋值的name
+function selectDataAllWithPartent(pid,returnType,idin,namein,idOut){
+	var objId=document.all(idOut);
+	//var objName=document.all(nameOut);
+	var namein1 = namein.substring(namein.lastIndexOf('>')+1,namein.length)
+	//alert(returnType1);
+	var retStr=selectDataWithPartent(pid,returnType,idin,namein1);
+	var i;
+	var dataName;
+	var dataId;
+	if(retStr!=null){
+	  i=str.indexOf("|");
+	  dataName=str.substring(0,i);
+	  dataId=str.substring(i+1);
+	}else{
+		return;
+	}
+	objId.value=dataId;
+	//objName.value=dataName;
+}
+//showQuery:显示查询区域,1为显示,0不显示
+function selectDataAllWithPartent(pid,returnType,showQuery,idin,namein,idOut){
+	var objId=document.all(idOut);
+	//var objName=document.all(nameOut);
+	var namein1 = namein.substring(namein.lastIndexOf('>')+1,namein.length)
+	//alert(returnType1);
+	var retStr=selectDataWithPartent(pid,returnType,showQuery,idin,namein1);
+	var i;
+	var dataName;
+	var dataId;
+	if(retStr!=null){
+	  i=str.indexOf("|");
+	  dataName=str.substring(0,i);
+	  dataId=str.substring(i+1);
+	}else{
+		return;
+	}
+	objId.value=dataId;
+	//objName.value=dataName;
+}
+
+function selectDataAllWithPartentAndSearchByDetpId(pid,returnType,showQuery,idin,namein,idOut,nameOut,dataIds){
+	//for(var i = 0; i < dataIds.length; i++){
+	//	alert("dataIds["+i+"]="+dataIds[i]);
+	//	link = link + "&dataId=" + dataIds[i];
+	//}
+	//alert("调用"+showQuery);
+	var objId=document.all(idOut);
+	//var objName=document.all(nameOut);
+	var namein1 = namein.substring(namein.lastIndexOf('>')+1,namein.length)
+	//alert(returnType1);
+	var retStr=selectDataWithPartentAndSearchByDetpId(pid,returnType,showQuery,idin,namein1,dataIds);
+	var i;
+	var dataName;
+	var dataId;
+	if(retStr!=null){
+	  i=str.indexOf("|");
+	  dataName=str.substring(0,i);
+	  dataId=str.substring(i+1);
+	}else{
+		return;
+	}
+	objId.value=dataId;
+	//objName.value=dataName;
+}
+
+function selectDataWithPartentAndSearchByDetpId(pid,returnType,showQuery,ids,names,dataIds){
+	var link="/jsp/forest/select_data_manage/main_frame.jsp?pid="+pid+"&returnType="+returnType+"&showQuery="+showQuery+"&ID="+ids+"&Name="+names+"&withparent=true";
+	for(var i = 0; i < dataIds.length; i++){
+		link = link + "&dataId=" + dataIds[i];
+	}
+	var stat="dialogWidth:600px;dialogHeight:400px;status:0;help:0;scroll:0";
+ 	str=window.showModalDialog(link,"MyDialog",stat);
+	return str;
+}
+
+
+
+
+
+
+
+//////////////////////////////////////////////////
+
+//autoro:刘宇
+//选择数据项目(消防产品项目)
+//pid:顶级节点id.默认为所有
+//returnType:选择类型多选(0)单选(1)默认多选
+//idss已经选中的id
+//names已经选中的名称
+//指定specId参数构造树
+function selectDataWithPartent(pid,returnType,showQuery,ids,names){
+	var link="/jsp/forest/all_select_data_manage/main_frame.jsp?pid="+pid+"&returnType="+returnType+"&showQuery="+showQuery+"&ID="+ids+"&Name="+names+"&withparent=true";
+	var stat="dialogWidth:600px;dialogHeight:400px;status:0;help:0;scroll:0";
+ 	str=window.showModalDialog(link,"MyDialog",stat);
+	return str;
+}
+
+
+//author:高彦夫
+//选择数据项目,带输出值(消防产品项目)
+//pid:顶级节点id.默认为所有
+//returnType:选择类型多选(0)单选(1)默认多选
+//isQuery:查询为1，即只能选取最终子节点 ；新增保存，修改为0 ，即可选择非最终子节点；
+//idin已经选中的id
+//nameIn已经选中的名称
+//idOut需要赋值的id
+//nameOut需要赋值的name
+function selectAreaTree(pid,returnType,isQuery,idin,namein,idOut){
+	var objId=document.all(idOut);
+	//var objName=document.all(nameOut);
+	var namein1 = namein.substring(namein.lastIndexOf('>')+1,namein.length)
+	//alert(namein1);
+	var retStr=openAreaTree(pid,returnType,isQuery,idin,namein1);
+	var i;
+	var dataName;
+	var dataId;
+	if(retStr!=null){
+	  i=str.indexOf("|");
+	  dataName=str.substring(0,i);
+	  dataId=str.substring(i+1);
+	}else{
+		return;
+	}
+	objId.value=dataId;
+	//objName.value=dataName;
+}
+
+
+
+
+
+//============================根据企业deptId获得该企业可以生产的产品=====================================
+
+//autoro:刘宇
+//选择数据项目(消防产品项目)
+//pid:顶级节点id.默认为所有
+//returnType:选择类型多选(0)单选(1)默认多选
+//idss已经选中的id
+//names已经选中的名称
+//指定specId参数构造树
+function selectDataWithPartentByDetpId(pid,returnType,idss,names,dataIds){
+	var link="/jsp/forest/select_data_manage/main_frame.jsp?pid="+pid+"&returnType="+returnType+"&ID="+idss+"&Name="+names+"&withparent=true";
+	for(var i = 0; i < dataIds.length; i++){
+		link = link + "&dataId=" + dataIds[i];
+	}
+	var stat="dialogWidth:600px;dialogHeight:400px;status:0;help:0;scroll:0";
+ 	str=window.showModalDialog(link,"MyDialog",stat);
+	return str;
+}
+
+//author:boril
+//选择数据项目,带输出值(消防产品项目)
+//pid:顶级节点id.默认为所有
+//returnType:选择类型多选(0)单选(1)默认多选
+//idin已经选中的id
+//nameIn已经选中的名称
+//idOut需要赋值的id
+//nameOut需要赋值的name                 
+function selectDataAllWithPartentByDetpId(pid,returnType,idin,namein,idOut,nameOut,dataIds){
+	//for(var i = 0; i < dataIds.length; i++){
+	//	alert("dataIds["+i+"]="+dataIds[i]);
+	//	link = link + "&dataId=" + dataIds[i];
+	//}
+		
+	var objId=document.all(idOut);
+	//var objName=document.all(nameOut);
+	var namein1 = namein.substring(namein.lastIndexOf('>')+1,namein.length)
+	//alert(returnType1);
+	var retStr=selectDataWithPartentByDetpId(pid,returnType,idin,namein1,dataIds);
+	var i;
+	var dataName;
+	var dataId;
+	if(retStr!=null){
+	  i=str.indexOf("|");
+	  dataName=str.substring(0,i);
+	  dataId=str.substring(i+1);
+	}else{
+		return;
+	}
+	objId.value=dataId;
+	//objName.value=dataName;
+}
+
+//===============================================================================================
+
+//=========ajax方式用id获得包括父节点在内的名称==========
+
+//获得树的节点名称包括父节点名称
+function getItemNameWithParent(id,name){
+	if(id != ''){
+		var xmlhttp;
+		try{
+			xmlhttp = new ActiveXObject('Microsoft.XMLHTTP');
+		}catch(e){
+			try{
+				xmlhttp = new ActiveXObject('Microsoft.XMLHTTP');
+			}catch(e){
+				try{
+					xmlhttp = new ActiveXObject();
+				}catch(e){
+					alert("创建xmlhttp请求失败!");
+				}
+			}
+		}
+		xmlhttp.onreadystatechange = function(){
+			if(xmlhttp.readyState == 4){
+				if(xmlhttp.status == 200){
+					var value = xmlhttp.responseText;
+					if(value == "0"){
+						alert("网络出现故障，请重新配置！");
+					}else{
+						name.value = value;
+					}
+				}else{
+					alert("==="+xmlhttp.status);
+				}
+			}
+		}
+		xmlhttp.open("get","/jsp/module/system/basicconfig/itemNameManage.jsp?id="+id);
+		xmlhttp.send(null);
+	}
+}
+
+
+
+
+//=========ajax方式用specSortCode专用物品名称==========
+
+//获得树的节点名称包括父节点名称
+function getSpecSortName(id,name){
+	if(id != ''){
+		var xmlhttp;
+		try{
+			xmlhttp = new ActiveXObject('Microsoft.XMLHTTP');
+		}catch(e){
+			try{
+				xmlhttp = new ActiveXObject('Microsoft.XMLHTTP');
+			}catch(e){
+				try{
+					xmlhttp = new ActiveXObject();
+				}catch(e){
+					alert("创建xmlhttp请求失败!");
+				}
+			}
+		}
+		xmlhttp.onreadystatechange = function(){
+			if(xmlhttp.readyState == 4){
+				if(xmlhttp.status == 200){
+					var value = xmlhttp.responseText;
+					if(value == "0"){
+						alert("网络出现故障，请重新配置！");
+					}else{
+						name.value = value;
+					}
+				}else{
+					alert("===" + xmlhttp.status + "===");
+				}
+			}
+		}
+		xmlhttp.open("get","/jsp/module/specgoods/in/specNameManage.jsp?specSortCode="+id);
+		xmlhttp.send(null);
+	}
+}
+
+//获得树的节点名称包括父节点名称
+function uploadFile(path,num){
+	var xmlhttp;
+	try{
+		xmlhttp = new ActiveXObject('Microsoft.XMLHTTP');
+	}catch(e){
+		try{
+			xmlhttp = new ActiveXObject('Microsoft.XMLHTTP');
+		}catch(e){
+			try{
+				xmlhttp = new ActiveXObject();
+			}catch(e){
+				alert("创建xmlhttp请求失败!");
+			}
+		}
+	}
+	xmlhttp.onreadystatechange = function(){
+		if(xmlhttp.readyState == 4){
+			if(xmlhttp.status == 200){
+				var value = xmlhttp.responseText;
+				//给隐藏域赋值
+				num.value = value;
+			}else{
+				alert("===" + xmlhttp.status + "===");
+			}
+		}
+	}
+	xmlhttp.open("get","/jsp/module/specgoods/in/uploadFile.jsp?path="+path);
+	xmlhttp.send(null);
+}
+
+
+//=========================================product_config_tree================================================
+
+//author:boril
+//选择数据项目(消防)
+//pid:顶级节点id.默认为所有
+//returnType:选择类型多选(0)单选(1)默认多选
+//idss已经选中的id
+//names已经选中的名称
+function selectProductData(pid,returnType,idss,names){
+	var link="/jsp/forest/product_config_tree/main_frame.jsp?pid="+pid+"&returnType="+returnType+"&ID="+idss+"&Name="+names+"&withparent=true";
+	var stat="dialogWidth:600px;dialogHeight:400px;status:0;help:0;scroll:0";
+ 	str=window.showModalDialog(link,"MyDialog",stat);
+	return str;
+}
+//选择数据项目(消防)
+//pid:顶级节点id.默认为所有
+//returnType:选择类型多选(0)单选(1)默认多选
+//////////////////////////
+//isQuery:查询为1，新增保存，修改为0；
+///////////////////////////
+//idss已经选中的id
+//names已经选中的名称
+function selectProductData(pid,returnType,isQuery,idss,names){
+	var link="/jsp/forest/product_config_tree/main_frame.jsp?pid="+pid+"&returnType="+returnType+"&isQuery="+isQuery+"&ID="+idss+"&Name="+names+"&withparent=true";
+	var stat="dialogWidth:600px;dialogHeight:400px;status:0;help:0;scroll:0";
+ 	str=window.showModalDialog(link,"MyDialog",stat);
+	return str;
+}
+//author:boril
+//选择数据项目,带输出值(哈尔滨项目)
+//pid:顶级节点id.默认为所有
+//returnType:选择类型多选(0)单选(1)默认多选
+//idin已经选中的id
+//nameIn已经选中的名称
+//idOut需要赋值的id
+//nameOut需要赋值的name
+function selectProductDataAll(pid,returnType,idin,namein,idOut,nameOut){
+	var objId=document.all(idOut);
+	//var objName=document.all(nameOut);
+	var namein1 = namein.substring(namein.lastIndexOf('>')+1,namein.length)
+	//alert(returnType1);
+	var retStr=selectProductData(pid,returnType,idin,namein1);
+	var i;
+	var dataName;
+	var dataId;
+	if(retStr!=null){
+	  i=str.indexOf("|");
+	  dataName=str.substring(0,i);
+	  dataId=str.substring(i+1);
+	}else{
+		return;
+	}
+	objId.value=dataId;
+}
+/************************高彦夫添加开始，区分是查询可选父一级数据项，新增保存，修改等只能选择最终子级数据项*/
+//author:高彦夫
+//选择数据项目,带输出值(哈尔滨项目)
+//pid:顶级节点id.默认为所有
+//returnType:选择类型多选(0)单选(1)默认多选
+//////////////////////////
+//isQuery:查询为1，新增保存，修改为0；
+///////////////////////////
+//idin已经选中的id
+//nameIn已经选中的名称
+//idOut需要赋值的id
+//nameOut需要赋值的name
+function selectProductDataAll(pid,returnType,isQuery,idin,namein,idOut,nameOut){
+	var objId=document.all(idOut);
+	//var objName=document.all(nameOut);
+	var namein1 = namein.substring(namein.lastIndexOf('>')+1,namein.length)
+	//alert(returnType1);
+	var retStr=selectProductData(pid,returnType,isQuery,idin,namein1);
+	var i;
+	var dataName;
+	var dataId;
+	if(retStr!=null){
+	  i=str.indexOf("|");
+	  dataName=str.substring(0,i);
+	  dataId=str.substring(i+1);
+	}else{
+		return;
+	}
+	objId.value=dataId;
+}
+//author:高彦夫
+//选择数据项目,带输出值(哈尔滨项目)
+//pid:顶级节点id.默认为所有
+//returnType:选择类型多选(0)单选(1)默认多选
+
+//isQuery:查询为1，新增保存，修改为0；
+//showQuery:显示查询区域,1为显示,0不显示
+//idin已经选中的id
+//nameIn已经选中的名称
+//idOut需要赋值的id
+//nameOut需要赋值的name
+function selectProductWithSearch(pid,returnType,isQuery,showQuery,idin,namein,idOut,nameOut){
+	//alert("idOut="+idOut);
+	//alert("nameOut="+nameOut);
+	var objId=document.all(idOut);
+	var objName=document.all(nameOut);
+	var retStr=selectProductDataWithSearch(pid,returnType,isQuery,showQuery,idin,namein);
+	var i;
+	var dataName;
+	var dataId;
+	if(retStr!=null){
+	  i=str.indexOf("|");
+	  dataName=str.substring(0,i);
+	  dataId=str.substring(i+1);
+	}else{
+		return;
+	}
+	objId.value=dataId;
+	objName.value=dataName;
+}
+
+//选择数据项目(消防)
+//pid:顶级节点id.默认为所有
+//returnType:选择类型多选(0)单选(1)默认多选
+//////////////////////////
+//isQuery:查询为1，新增保存，修改为0；
+//showQuery:显示查询区域,1为显示,0不显示
+//idss已经选中的id
+//names已经选中的名称
+function selectProductDataWithSearch(pid,returnType,isQuery,showQuery,idss,names){
+	var link="/jsp/forest/product_config_tree/main_frame.jsp?pid="+pid+"&returnType="+returnType+"&isQuery="+isQuery+"&showQuery="+showQuery+"&ID="+idss+"&Name="+names+"&withparent=true";
+	var stat="dialogWidth:600px;dialogHeight:400px;status:0;help:0;scroll:0";
+ 	str=window.showModalDialog(link,"MyDialog",stat);
+	return str;
+}
+/************************高彦夫添加结束，区分是查询可选父一级数据项，新增保存，修改等只能选择最终子级数据项*/
+//=========================================all_select_config_tree================================================
+
+//author:boril
+//选择数据项目(消防)
+//pid:顶级节点id.默认为所有
+//returnType:选择类型多选(0)单选(1)默认多选
+//idss已经选中的id
+//names已经选中的名称
+function selectAllSelectData(pid,returnType,idss,names){
+	var link="/jsp/forest/all_select_data_manage/main_frame.jsp?pid="+pid+"&returnType="+returnType+"&ID="+idss+"&Name="+names;
+	var stat="dialogWidth:600px;dialogHeight:400px;status:0;help:0;scroll:0";
+ 	str=window.showModalDialog(link,"MyDialog",stat);
+	return str;
+}
+//author:boril
+//选择数据项目,带输出值(哈尔滨项目)
+//pid:顶级节点id.默认为所有
+//returnType:选择类型多选(0)单选(1)默认多选
+//idin已经选中的id
+//nameIn已经选中的名称
+//idOut需要赋值的id
+//nameOut需要赋值的name
+function selectAllSelectDataAll(pid,returnType,idin,namein,idOut,nameOut){
+	//alert("idOut="+idOut);
+	//alert("nameOut="+nameOut);
+	var objId=document.all(idOut);
+	var objName=document.all(nameOut);
+	var retStr=selectAllSelectData(pid,returnType,idin,namein);
+	var i;
+	var dataName;
+	var dataId;
+	if(retStr!=null){
+	  i=str.indexOf("|");
+	  dataName=str.substring(0,i);
+	  dataId=str.substring(i+1);
+	}else{
+		return;
+	}
+	objId.value=dataId;
+	objName.value=dataName;
+}
+
+//============================根据企业deptId获得该企业可以生产的产品,且要到第四极才能选择=====================================
+
+//autoro:刘宇
+//选择数据项目(消防产品项目)
+//pid:顶级节点id.默认为所有
+//returnType:选择类型多选(0)单选(1)默认多选
+//idss已经选中的id
+//names已经选中的名称
+//指定specId参数构造树
+function selectDataWithPartentByDetpId_four(pid,returnType,idss,names,dataIds){
+	var link="/jsp/forest/select_data_tree_four/main_frame.jsp?pid="+pid+"&returnType="+returnType+"&ID="+idss+"&Name="+names+"&withparent=true";
+	var stat="dialogWidth:600px;dialogHeight:400px;status:0;help:0;scroll:0";
+ 	str=window.showModalDialog(link,dataIds,"MyDialog",stat);
+	return str;
+}
+
+//author:boril
+//选择数据项目,带输出值(消防产品项目)
+//pid:顶级节点id.默认为所有
+//returnType:选择类型多选(0)单选(1)默认多选
+//idin已经选中的id
+//nameIn已经选中的名称
+//idOut需要赋值的id
+//nameOut需要赋值的name                 
+function selectDataAllWithPartentByDetpId_four(pid,returnType,idin,namein,idOut,nameOut,dataIds){
+	//for(var i = 0; i < dataIds.length; i++){
+	//	alert("dataIds["+i+"]="+dataIds[i]);
+	//	link = link + "&dataId=" + dataIds[i];
+	//}
+	var objId=document.all(idOut);
+	//var objName=document.all(nameOut);
+	var namein1 = namein.substring(namein.lastIndexOf('>')+1,namein.length);
+	//alert(returnType1);
+	var retStr=selectDataWithPartentByDetpId_four(pid,returnType,idin,namein1,dataIds);
+	var i;
+	var dataName;
+	var dataId;
+	if(retStr!=null){
+	  i=str.indexOf("|");
+	  dataName=str.substring(0,i);
+	  dataId=str.substring(i+1);
+	}else{
+		return;
+	}
+	objId.value=dataId;
+	//objName.value=dataName;
+}
+
+//==========================================只能地区树节点的第二级,即市级别=================================
+//autoro:刘宇
+//选择数据项目(消防产品项目)
+//pid:顶级节点id.默认为所有
+//returnType:选择类型多选(0)单选(1)默认多选
+//idss已经选中的id
+//names已经选中的名称
+//指定specId参数构造树
+function selectDataWithPartentForArea(pid,returnType,idss,names){
+	var link="/jsp/forest/area_config_tree/main_frame.jsp?pid="+pid+"&returnType="+returnType+"&ID="+idss+"&Name="+names+"&withparent=true";
+	var stat="dialogWidth:600px;dialogHeight:400px;status:0;help:0;scroll:0";
+ 	str=window.showModalDialog(link,"MyDialog",stat);
+	return str;
+}
+
+//author:boril
+//选择数据项目,带输出值(消防产品项目)
+//pid:顶级节点id.默认为所有
+//returnType:选择类型多选(0)单选(1)默认多选
+//idin已经选中的id
+//nameIn已经选中的名称
+//idOut需要赋值的id
+//nameOut需要赋值的name
+function selectDataAllWithPartentForArea(pid,returnType,idin,namein,idOut){
+	var objId=document.all(idOut);
+	//var objName=document.all(nameOut);
+	var namein1 = namein.substring(namein.lastIndexOf('>')+1,namein.length)
+	//alert(returnType1);
+	var retStr=selectDataWithPartentForArea(pid,returnType,idin,namein1);
+	var i;
+	var dataName;
+	var dataId;
+	if(retStr!=null){
+	  i=str.indexOf("|");
+	  dataName=str.substring(0,i);
+	  dataId=str.substring(i+1);
+	}else{
+		return;
+	}
+	objId.value=dataId;
+	//objName.value=dataName;
+}
+
+//ud笔标识查询
+//name:文本域对象
+//deptid:企业id号
+//flag:选择类型多选(0)单选(1)
+function udPenIdFind(name,flag,deptid){
+   
+	var stat="status=no,maximize=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,top=240,left=380,resizable=no,height=400,width=355";
+	var windowObject = window.open(
+		('/jsp/module/system/util/udPenFind.jsp?flag='+flag+'&deptid='+deptid+'&name='+name.name)
+		,'',stat);
+	
+}
+
+//author:高彦夫
+//ud笔标识查询
+//ownerId:用户id也是ownerId
+//name:文本域对象
+//deptid:企业id号
+//flag:选择类型多选(0)单选(1)
+function udPenIdFind(name,flag,deptid,ownerId){
+  
+	var stat="status=no,maximize=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,top=240,left=380,resizable=no,height=400,width=355";
+	var url='/jsp/module/system/util/udPenFind.jsp?flag='+flag+'&deptid='+deptid+'&name='+name.name+'&ownerid='+ownerId;
+	var windowObject = window.open(url,'',stat);
+	
+}
+
+
+//=========================================all_select_config_tree选择到第二级且显示全部树结构================================================
+
+//author:boril
+//选择数据项目(消防)
+//pid:顶级节点id.默认为所有
+//returnType:选择类型多选(0)单选(1)默认多选
+//idss已经选中的id
+//names已经选中的名称
+function selectAllSelectDataToSecond(pid,returnType,idss,names){
+	var link="/jsp/forest/all_select_data_manage_to_second/main_frame.jsp?pid="+pid+"&returnType="+returnType+"&ID="+idss+"&Name="+names;
+	var stat="dialogWidth:600px;dialogHeight:400px;status:0;help:0;scroll:0";
+ 	str=window.showModalDialog(link,"MyDialog",stat);
+	return str;
+}
+//author:boril
+//选择数据项目,带输出值(哈尔滨项目)
+//pid:顶级节点id.默认为所有
+//returnType:选择类型多选(0)单选(1)默认多选
+//idin已经选中的id
+//nameIn已经选中的名称
+//idOut需要赋值的id
+//nameOut需要赋值的name
+function selectAllSelectDataAllToSecond(pid,returnType,idin,namein,idOut,nameOut){
+	//alert("idOut="+idOut);
+	//alert("nameOut="+nameOut);
+	var objId=document.all(idOut);
+	var objName=document.all(nameOut);
+	var retStr=selectAllSelectDataToSecond(pid,returnType,idin,namein);
+	var i;
+	var dataName;
+	var dataId;
+	if(retStr!=null){
+	  i=str.indexOf("|");
+	  dataName=str.substring(0,i);
+	  dataId=str.substring(i+1);
+	}else{
+		return;
+	}
+	objId.value=dataId;
+	objName.value=dataName;
+}
+
+
+
+//====================构造产品类别到第三级和第四级====================
+
+//autoro:刘宇
+//选择数据项目(消防产品项目)
+//pid:顶级节点id.默认为所有
+//returnType:选择类型多选(0)单选(1)默认多选
+//idss已经选中的id
+//names已经选中的名称
+//指定specId参数构造树
+function selectDataWithPartent_three(pid,returnType,idss,names){
+	var link="/jsp/forest/select_data_manage_three_four/main_frame.jsp?pid="+pid+"&returnType="+returnType+"&ID="+idss+"&Name="+names+"&withparent=true";
+	var stat="dialogWidth:600px;dialogHeight:400px;status:0;help:0;scroll:0";
+ 	str=window.showModalDialog(link,"MyDialog",stat);
+	return str;
+}
+
+//author:boril
+//选择数据项目,带输出值(消防产品项目)
+//pid:顶级节点id.默认为所有
+//returnType:选择类型多选(0)单选(1)默认多选
+//idin已经选中的id
+//nameIn已经选中的名称
+//idOut需要赋值的id
+//nameOut需要赋值的name
+function selectDataAllWithPartent_three(pid,returnType,idin,namein,idOut){
+	var objId=document.all(idOut);
+	//var objName=document.all(nameOut);
+	var namein1 = namein.substring(namein.lastIndexOf('>')+1,namein.length)
+	//alert(returnType1);
+	var retStr=selectDataWithPartent_three(pid,returnType,idin,namein1);
+	var i;
+	var dataName;
+	var dataId;
+	if(retStr!=null){
+	  i=str.indexOf("|");
+	  dataName=str.substring(0,i);
+	  dataId=str.substring(i+1);
+	}else{
+		return;
+	}
+	objId.value=dataId;
+	//objName.value=dataName;
+}
+
+
+
+
+//获得树的节点名称包括父节点名称
+function getAccessUser(grupId,userId,userName){
+	if(grupId != ''){
+		var xmlhttp;
+		try{
+			xmlhttp = new ActiveXObject('Microsoft.XMLHTTP');
+		}catch(e){
+			try{
+				xmlhttp = new ActiveXObject('Microsoft.XMLHTTP');
+			}catch(e){
+				try{
+					xmlhttp = new ActiveXObject();
+				}catch(e){
+					alert("创建xmlhttp请求失败!");
+				}
+			}
+		}
+		xmlhttp.onreadystatechange = function(){
+			if(xmlhttp.readyState == 4){
+				if(xmlhttp.status == 200){
+					var value = xmlhttp.responseText;
+					alert(value);
+					var s = new Array();
+					s = value.split("|");
+					if(value == "0"){
+						alert("网络出现故障，请重新配置！");
+					}else{
+						userId.value = s[0];
+						userName.value = s[1];
+					}
+				}else{
+					alert("===xmlhttp.status==="+xmlhttp.status);
+				}
+			}
+		}
+		xmlhttp.open("get","/jsp/module/product/datasdispense/accessUserManage.jsp?grupId="+grupId);
+		xmlhttp.send(null);
+	}
+}
+
+
+
+
+//判断树型结构是否含有子节点,如省市区县的
+function getChildrenNodeCount(itemId,resultCount){
+	if(itemId!= ''){
+	//alert("option=========结果集itemId"+itemId);
+		var xmlhttp;
+		try{
+			xmlhttp = new ActiveXObject('Microsoft.XMLHTTP');
+		}catch(e){
+			try{
+				xmlhttp = new ActiveXObject('Microsoft.XMLHTTP');
+			}catch(e){
+				try{
+					xmlhttp = new ActiveXObject();
+				}catch(e){
+					alert("创建xmlhttp请求失败!");
+				}
+			}
+		}
+		xmlhttp.onreadystatechange = function(){
+			if(xmlhttp.readyState == 4){
+				if(xmlhttp.status == 200){
+					var value = xmlhttp.responseText;
+					if(value == "0"){
+						alert("网络出现故障，请重新配置！");
+					}else{
+				//	alert("option=========结果集"+value);
+						resultCount.value = value;
+						return value;
+					}
+				}else{
+					alert("===" + xmlhttp.status + "===");
+				}
+			}
+		}
+		xmlhttp.open("get","/jsp/forest/area_config_tree/getChildrenNodeCount.jsp?itemId="+itemId);
+		xmlhttp.send(null);
+	}
+}
+
+
+//===============================================消防执法统计工作量productCheckCount.jsp===================================
+
+//author:boril
+//选择数据项目,带输出值(消防产品项目)
+//pid:顶级节点id.默认为所有
+//returnType:选择类型多选(0)单选(1)默认多选
+//idin已经选中的id
+//nameIn已经选中的名称
+//idOut需要赋值的id
+//nameOut需要赋值的name
+function selectDataAllWithPartent_areaImpower(pid,returnType,idin,namein,idOut,impower,impowerArea){
+	var objId=document.all(idOut);
+	//var objName=document.all(nameOut);
+	var namein1 = namein.substring(namein.lastIndexOf('>')+1,namein.length)
+	//alert(returnType1);
+	var retStr=selectDataWithPartent_areaImpower(pid,returnType,idin,namein1,impower,impowerArea);
+	var i;
+	var dataName;
+	var dataId;
+	if(retStr!=null){
+	  i=str.indexOf("|");
+	  dataName=str.substring(0,i);
+	  dataId=str.substring(i+1);
+	}else{
+		return;
+	}
+	objId.value=dataId;
+	//objName.value=dataName;
+}
+
+//autoro:刘宇
+//选择数据项目(消防产品项目)
+//pid:顶级节点id.默认为所有
+//returnType:选择类型多选(0)单选(1)默认多选
+//idss已经选中的id
+//names已经选中的名称
+//指定specId参数构造树
+function selectDataWithPartent_areaImpower(pid,returnType,ids,names,impower,impowerArea){
+	var link="/jsp/forest/all_select_data_manage/main_frame.jsp?pid="+pid+"&returnType="+returnType+"&ID="+ids+"&Name="+names+"&withparent=true&impower="+impower+"&impowerArea="+impowerArea+"&showQuery=0";
+	var stat="dialogWidth:600px;dialogHeight:400px;status:0;help:0;scroll:0";
+ 	str=window.showModalDialog(link,"MyDialog",stat);
+	return str;
+}
+
+
+
+//========================================按单位类型、省市地区显示单位列表==========================================
+
+//autoro:刘宇
+//查询企业信息
+//name:文本域对象
+//code:隐藏域对象
+//flag:选择类型多选(0)单选(1)
+function compFindParam(code,name,flag,compType,areaCode){
+	//alert(compType);
+	var stat="status=no,maximize=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,top=240,left=580,resizable=no,height=400,width=315";
+	var windowObject = window.open(
+		('/jsp/module/system/util/compFind.jsp?flag='+flag+'&code='+code.name+'&name='+name.name+'&compType='+compType+'&areaCode='+areaCode)
+		,'',stat);
+}
+
+//=========================================================================================================

@@ -1,0 +1,199 @@
+function CalenderPop(sthis,tt){
+     //alert("----");
+     //alert(tt);
+     newtimestr="";
+     newtimestr=window.showModalDialog("/jsp/common/calendarvb.htm",sthis.value,"dialogWidth:206px;dialogHeight:221px;status:0;help:0;scroll:0")
+     if ((newtimestr!="")&&(newtimestr!=null))
+       sthis.value=newtimestr;
+	 else sthis.value="";
+}
+function CalenderPopTime(sthis,tt){
+     newtimestr="";
+     newtimestr=window.showModalDialog("/jsp/common/calendarvb.htm",sthis.value,"dialogWidth:206px;dialogHeight:300px;status:0;help:0;scroll:0")
+     if ((newtimestr!="")&&(newtimestr!=null))
+       sthis.value=newtimestr;
+	 else sthis.value="";
+}
+
+function CalenderPopnew(returnobj,postvale,timeType) {
+var returnObj = returnobj; //第一参数(必填)用来确定回传的对象
+var postval = postvale;   //第二个参数(可选)用来确定打开的日期对象的初始值，不写第二个参数也行则打开日期对象的值为默认的客户端的当天日期
+if (typeof(postval)=="undefined") postval="";
+var chardip =/\./g
+postval = postval.replace(chardip,"-"); //用于替换在sysbase数据库用convert(char(10),date,102)时所生成的2002.12.03这种日期格式
+
+//Zang:根据需要调整页面显示高度
+if(timeType == null){
+	timeType = "1";
+}
+var widthStr = "238";
+if(timeType != "1"){
+	widthStr = "245";
+}
+
+//Zang:组合时间和时间精度类型两个参数传向下页
+postval = postval + "|" + timeType;
+//retval=window.open("/jsp/common/calendar.htm", null);
+
+ retval=window.showModalDialog("/jsp/common/calendar.htm", postval, "dialogWidth:258px; dialogHeight:"+widthStr+"px;  status:no; directories:yes;scrollbars:no;Resizable=no; "  );
+
+ if( retval != null ){
+ 		//Zang:根据输出时间精度类型来截取输出字符串
+ 		switch(timeType)
+ 		{
+ 			case 1:
+ 				returnObj.value = retval.substring(0,10);
+ 				break;
+ 			case 2:
+ 				returnObj.value = retval.substring(0,13);
+ 				break;
+ 			case 3:
+ 				returnObj.value = retval.substring(0,16);
+ 				break;
+ 			case 4:
+ 				returnObj.value = retval.substring(0,19);
+ 				break;
+ 			default:
+ 				returnObj.value = retval.substring(0,10);
+ 				break;
+ 		}
+	}else{
+		//alert("canceled");
+	}
+ 
+}
+
+
+/**********2007-8-22标签数量计算 高彦夫添加开始 ********************/
+function TagSub(Bnum, Enum,type,size)
+	{
+
+	 var sub=0;
+	
+    switch(type)
+	{
+	//准十进制
+      case 0: 
+	 
+	   Bnum=changA0to10(Bnum,size)
+	 Enum=changA0to10(Enum,size)
+	  sub=Enum-Bnum;
+	  break;
+	  //十进制
+	   case 1: 
+	  sub=Enum-Bnum;
+	  break;
+	  		  
+      //十六进制
+       case 2:
+     Bnum="0x"+Bnum;
+	 Enum="0x"+Enum;
+	  sub=Enum-Bnum;
+	   break;	
+    // 三十六进制
+	   case 3:
+	    
+	 Bnum=chang36to10(Bnum,size)
+	 Enum=chang36to10(Enum,size)
+	  sub=Enum-Bnum;
+	   break;	
+	 }
+	  return sub;
+	}
+	function changA0to10(num,size)
+	{
+	
+	 b= num.substring(0,1);
+	 if(b>='A')
+	 {
+	   b=10+(b.charCodeAt(0)-'A'.charCodeAt(0));
+	 }
+	 e=num.substring(1,size)
+	 num=b+e;
+	// alert(num);
+	 num=num*1;
+	 return num;
+	 
+	
+	
+	}
+	
+	 function chang36to10(num,size)
+	 {
+	var i=size;
+	   var b=0;//数字位的值
+	   var B=0;//数字总值
+	 
+	 for (i;i>0;i-- )
+	  {
+
+	    b= num.substring(size-i,size-i+1);
+	   if(b>='A')
+	   {
+	   b=10+(b.charCodeAt(0)-'A'.charCodeAt(0));
+	   }
+	   for(var j=0;j<(i-1);j++)
+	   {
+	   b*=36; 
+	   }
+	   if(i==1)
+	   {
+	   b=b*1;
+	   }
+	   B+=b;
+	  }
+	  return B;
+	 }
+	/**********2007-8-22标签数量计算 高彦夫添加开始 ********************/
+	//*************2007-8-7高彦夫添加  检查小签、大签格式 单价格式及计算数量和总价 ****开始************
+function checkIsNull(str)
+{
+var regu = "^[\s]+$";
+  var re = new RegExp(regu);
+  var reS="";
+   if(str!=""&&!re.test(str))
+   {
+   return true;
+   }
+  
+
+}
+function checkNum1(str)
+{
+    var regu = "^[\s]+$";
+    var re = new RegExp(regu);
+    var reS="";
+    if(str!=""&&(!re.test(str)))
+      {
+          var tempstr = str.match(/^([\s]{0,})([1-9]\d*)([\s]{0,})$/);
+          if(tempstr != null)
+          {
+         
+          
+           return true;
+        }
+         return false;
+  }
+  return false;
+}
+
+function checkS_LNum2(str,type)
+ {
+ 
+
+   if(type==1||type==2||type==11||type==21)
+    {
+    reS = /^([\da-zA-Z])([B][0-9A-Z]{4})([\s]{0,})$/;
+    }
+    if(type==3||type==4||type==31||type==41)
+    {
+    reS = /^([\da-zA-Z])([C][0-9A-Z]{4})([\s]{0,})$/;
+     }
+    var t = str.match(reS);
+   if (t != null)
+   {
+  
+      return true;
+   }
+   return false;
+  }

@@ -1,0 +1,98 @@
+﻿/**
+*本js文件包含比较常用的js函数如下：
+*go(totalPage, url,count)//翻页用到的函数；
+*
+*
+*/
+
+
+
+/**
+*totalPage:总页数；
+*ur：要定向的目标；
+*count：一页显示的条数；        by  陈玉良；
+*/
+function go(totalPage, url,count){
+	//alert(count);
+  if(count==undefined)count=10;
+  var pagenumber = document.all("pagenumber").value;
+  if (isNaN(pagenumber)||pagenumber == "" || pagenumber <= 0 || pagenumber > totalPage) {
+      alert("请输入正确的页码!");
+      form1.pagenumber.select();
+      return false;
+  } else {
+      form1.action=url+"&start="+(pagenumber-1)*count;
+	    //由于有些页面不好使用，加如下代码；
+       if(form1.start!=undefined)
+        form1.start.value=(pagenumber-1)*10;
+      form1.submit();
+    }
+}
+
+
+/**
+*判断选择的日期范围是否有效，开始日期和结束日期有空则返回false;开始日期大于结束日期的返回false;
+*sDate 文本域对象，标示开始日期；
+*eDate 文本域对象，标示结束日期；            by  丁姣
+*/
+function checkDate(startDate,endDate) {
+	if(startDate.value != ""){
+		if(endDate.value != ""){
+			var year1 = startDate.value.substring(0,4)
+			var month1 = startDate.value.substring(5,7)
+			var day1 = startDate.value.substring(8,10)
+
+			var year2 = endDate.value.substring(0,4)
+			var month2 = endDate.value.substring(5,7)
+			var day2 = endDate.value.substring(8,10)
+
+			var start = new Date(year1,month1,day1)
+			var end = new Date(year2,month2,day2)
+			if(start>end){
+				alert("查询开始日期要小于或等于结束日期！");
+				return false;
+			}
+		}
+	return true;
+}else{
+return true;
+}
+}
+
+
+//打开选择树
+function commonFind(tableName,attributeName,code,name,flag){
+	var stat="status=no,maximize=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,top=240,left=580,resizable=no,height=610,width=550";
+	var windowObject = window.open(
+		('/jsp/module/system/businessmanage/commonTree.jsp?flag='+flag+'&tableName='+tableName+'&attributeName='+attributeName+'&code='+code.name+'&name='+name.name)
+		,'',stat);
+}
+
+
+
+//判断checkbox是否被选中，ids是checkbox的名称；
+//返回 true 表示有选中，false没有选中；
+function checkSelected(ids){
+	var check = document.getElementsByName(ids);
+	for(var j=0;j<check.length;j++) {  
+	    //alert(check[j].checked);
+		if(check[j].checked==true)   return true;
+		}
+		return false;
+}
+
+//列表收缩
+function showTable(table,img)
+{
+  var table = table;
+  var img = img;
+  
+    if(table.style.display == "none")
+    {
+      table.style.display = "";	  
+	  img.src="/images/a-03.gif";
+    }else{
+      table.style.display = "none";	 
+	  img.src="/images/a-02.gif";
+    }
+}
